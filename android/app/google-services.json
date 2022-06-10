@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "991158318970",
+    "project_id": "fmaxtempcontroller",
+    "storage_bucket": "fmaxtempcontroller.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991158318970:android:6c598351312e0f49f048c3",
+        "android_client_info": {
+          "package_name": "com.friomax.tempcontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991158318970-fgo0f7lhalr44d8u8i19f8v95eo8lu0e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.friomax.tempcontrol",
+            "certificate_hash": "c5cb3992dfe4ab4ec16ae3c6e54713b6509aa55a"
+          }
+        },
+        {
+          "client_id": "991158318970-0uqqboducsvu3p105c4bl9d7talm03ub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHLhVX5AHae8VJWR_w2osw37w6bXe5kM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991158318970-0uqqboducsvu3p105c4bl9d7talm03ub.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
