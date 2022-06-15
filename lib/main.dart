@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tempcontrol/constants/constants.dart';
 import 'package:tempcontrol/provider/dataprovider.dart';
+import 'package:tempcontrol/screen/alehome.dart';
 import 'package:tempcontrol/screen/home.dart';
 
 import 'package:tempcontrol/screen/loginpage.dart';
@@ -67,7 +68,7 @@ class MainPage extends StatelessWidget {
               child: Text('Algo Deu errado'),
             );
           } else if (snapshot.hasData) {
-            return const HomePage();
+            return const Home2();
           }
           return const LoginPage();
         },

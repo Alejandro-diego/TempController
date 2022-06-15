@@ -3,7 +3,13 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tempcontrol/provider/dataprovider.dart';
+import 'package:tempcontrol/widget/chart.dart';
+import '../widget/ale.dart';
+import '../widget/autoscroll.dart';
 import '../widget/button.dart';
+import '../widget/categorries.dart';
+import '../widget/lineplot.dart';
+import '../widget/printresult.dart';
 import '../widget/sfradialgauge1.dart';
 import '../widget/sfradialgauge2.dart';
 
@@ -24,10 +30,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            onPressed: () => FirebaseAuth.instance.signOut(),
-            icon: const Icon(Icons.logout_outlined),
-          ),
+          PopupMenuButton<int>(
+              onSelected: (item) => onSelected(context, item),
+              itemBuilder: (context) => [
+                    const PopupMenuItem(
+                      value: 0,
+                      child: Text('LimparMinutos'),
+                    ),
+                    const PopupMenuItem(
+                      value: 1,
+                      child: Text('LogOut'),
+                    ),
+                  ]),
         ],
         title: const Text("Controlador Temperatura"),
       ),
@@ -37,12 +51,36 @@ class _HomePageState extends State<HomePage> {
               ? Column(
                   children: [
                     Container(
+                      height: 40,
+                      margin:
+                          const EdgeInsets.only(left: 15.0, right: 15, top: 15),
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 49, 45, 45)
+                            .withOpacity(.3),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: const Categories(),
+                    ),
+                    Container(
+                      height: 20,
+                      margin:
+                          const EdgeInsets.only(left: 15.0, right: 15, top: 15),
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 49, 45, 45)
+                            .withOpacity(.3),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                 //     child: const LineChartSample2(),
+                    ),
+                    Container(
                       margin: const EdgeInsets.all(15.0),
                       padding: const EdgeInsets.all(5.0),
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 49, 45, 45)
                             .withOpacity(.3),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(18),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -64,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                                       value: data.datosProvider!.comp,
                                       onChanged: (bool valor) async {
                                         dialog();
-
+      
                                         setState(() {
                                           compState = valor;
                                         });
@@ -108,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 49, 45, 45)
                             .withOpacity(.3),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(18),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -156,6 +194,9 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
+      
+      
+                  const   DataChart(),
                   ],
                 )
               : const Center(
@@ -194,5 +235,17 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  void onSelected(BuildContext context, int item) async {
+    switch (item) {
+      case 0:
+        await _database.child('DataTemp/minutos').remove();
+
+        break;
+      case 1:
+        FirebaseAuth.instance.signOut();
+        break;
+    }
   }
 }
