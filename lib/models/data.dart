@@ -1,7 +1,6 @@
 class Data {
   late int temp1;
-  late int temp2;
- 
+  late int temp2; 
   late int timestamp;
 
   Data(
