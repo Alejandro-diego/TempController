@@ -20,30 +20,22 @@ class Sfgauge1 extends StatelessWidget {
                 fontWeight: FontWeight.bold)),
         axes: <RadialAxis>[
           RadialAxis(
+            showTicks: false,
+            axisLineStyle: const AxisLineStyle(
+                cornerStyle: CornerStyle.endCurve, thickness: 5),
+            showLabels: false,
             labelOffset: 1,
             minimum: -25.00,
             maximum: 25.00,
-            ranges: <GaugeRange>[
-              GaugeRange(
-                  startValue: -25,
-                  endValue: -20,
-                  color: Colors.orange,
-                  startWidth: 5,
-                  endWidth: 5),
-              GaugeRange(
-                  startValue: -20,
-                  endValue: 0,
-                  color: Colors.greenAccent,
-                  startWidth: 5,
-                  endWidth: 5),
-              GaugeRange(
-                  startValue: 0,
-                  endValue: 25,
-                  color: Colors.red,
-                  startWidth: 5,
-                  endWidth: 5)
-            ],
             pointers: <GaugePointer>[
+              RangePointer(
+                color: Colors.blue,
+                value: temp1,
+                cornerStyle: CornerStyle.bothCurve,
+                width: 5,
+              )
+
+              /*
               MarkerPointer(
                 value: temp1,
                 color: Colors.yellowAccent,
@@ -51,14 +43,14 @@ class Sfgauge1 extends StatelessWidget {
                 markerWidth: 15,
                 markerType: MarkerType.invertedTriangle,
               )
+
+              */
             ],
             annotations: <GaugeAnnotation>[
               GaugeAnnotation(
                   widget: Text('$temp1°',
                       style: const TextStyle(
-                          
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold)),
+                          fontSize: 18, fontWeight: FontWeight.bold)),
                   angle: 90,
                   positionFactor: 0)
             ],

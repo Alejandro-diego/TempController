@@ -2,38 +2,31 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:tempcontrol/models/data.dart';
+import '../models/tempdata.dart';
 
 class DataProviderRTDB extends ChangeNotifier {
-  Data? _datosProvider;
-  final _db = FirebaseDatabase.instance.ref().child("DataTemp");
+  TempData? _datosProvider;
+  final _db = FirebaseDatabase.instance.ref();
   String _date = "minutos";
 
   late StreamSubscription<DatabaseEvent> _dataStream;
 
-  Data? get datosProvider => _datosProvider;
+  TempData? get datosProvider => _datosProvider;
 
   String get date => _date;
 
   DataProviderRTDB() {
-    _obtener1();
+    _obtener();
   }
-  void _obtener1() {
-    _dataStream = _db.child('horas').limitToLast(2).onValue.listen((event) {
-      final data = Map<String, dynamic>.from(event.snapshot.value as dynamic);
-      _datosProvider = Data.fromMap(data);
-      notifyListeners();
-    });
-  }
-
   void _obtener() {
-    _dataStream = _db.child("data").onValue.listen((event) {
+    _dataStream = _db.child('data').onValue.listen((event) {
       final data = Map<String, dynamic>.from(event.snapshot.value as dynamic);
-      _datosProvider = Data.fromMap(data);
+      _datosProvider = TempData.fromMap(data);
       notifyListeners();
     });
   }
 
+  
   void dateSelect(String value) {
     _date = value;
     notifyListeners();

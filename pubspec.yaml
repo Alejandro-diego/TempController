@@ -35,20 +35,21 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   firebase_core: ^1.2.1  
-  provider: ^5.0.0
+  provider: ^6.0.3
   firebase_database: ^9.0.5
-  syncfusion_flutter_gauges: ^19.2.62
-  flutter_svg: ^0.22.0
+  syncfusion_flutter_gauges: ^20.1.60
+  flutter_svg: ^1.1.0
   google_fonts: ^3.0.1
   cloud_firestore: ^3.1.17
   firebase_auth: ^3.3.19
   firebase_messaging: ^10.0.1
   flutter_local_notifications: ^6.0.0
-  syncfusion_flutter_charts: ^19.4.56
-  time_chart: ^0.4.0
+  syncfusion_flutter_charts: ^20.1.60
+  time_chart: ^0.5.2
   
   intl: ^0.17.0
   fl_chart: ^0.51.0
+  simple_candlestick_chart: ^0.1.0
   
 
 dev_dependencies:

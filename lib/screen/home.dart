@@ -3,13 +3,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tempcontrol/provider/dataprovider.dart';
-import 'package:tempcontrol/widget/chart.dart';
-import '../widget/ale.dart';
-import '../widget/autoscroll.dart';
+
 import '../widget/button.dart';
 import '../widget/categorries.dart';
-import '../widget/lineplot.dart';
-import '../widget/printresult.dart';
+
+import '../widget/chart.dart';
 import '../widget/sfradialgauge1.dart';
 import '../widget/sfradialgauge2.dart';
 
@@ -63,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                       child: const Categories(),
                     ),
                     Container(
-                      height: 20,
+                      height: 250,
                       margin:
                           const EdgeInsets.only(left: 15.0, right: 15, top: 15),
                       padding: const EdgeInsets.all(5.0),
@@ -72,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                             .withOpacity(.3),
                         borderRadius: BorderRadius.circular(18),
                       ),
-                 //     child: const LineChartSample2(),
+                      child: const ChartLine(),
                     ),
                     Container(
                       margin: const EdgeInsets.all(15.0),
@@ -135,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Sfgauge1(
-                            temp1: (data.datosProvider!.temp1 / 100),
+                            temp1: (data.datosProvider!.temp1.toDouble() ),
                           )
                         ],
                       ),
@@ -157,7 +155,9 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text('Comp:  ON'),
+                                Text(data.datosProvider!.comp
+                                    ? 'Comp:  ON'
+                                    : 'Comp:  OFF'),
                                 const Text('Consumo:  2268 whats'),
                                 const Text('Press baixa:  71.3 psi'),
                                 const SizedBox(
@@ -189,14 +189,14 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Sfgauge2(
-                            temp2: (data.datosProvider!.temp2 / 100),
+                            temp2: (data.datosProvider!.temp2.toDouble() ),
                           )
                         ],
                       ),
                     ),
       
       
-                  const   DataChart(),
+                
                   ],
                 )
               : const Center(

@@ -19,46 +19,38 @@ class Sfgauge2 extends StatelessWidget {
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold)),
         axes: <RadialAxis>[
-          RadialAxis(
+         RadialAxis(
+            showTicks: false,
+            axisLineStyle: const AxisLineStyle(
+                cornerStyle: CornerStyle.endCurve, thickness: 5),
+            showLabels: false,
             labelOffset: 1,
             minimum: -5.00,
             maximum: 25.00,
-            ranges: <GaugeRange>[
-              GaugeRange(
-                  startValue: -5,
-                  endValue: 0,
-                  color: Colors.orange,
-                  startWidth: 5,
-                  endWidth: 5),
-              GaugeRange(
-                  startValue: 0,
-                  endValue: 10,
-                  color: Colors.greenAccent,
-                  startWidth: 5,
-                  endWidth: 5),
-              GaugeRange(
-                  startValue: 10,
-                  endValue: 25,
-                  color: Colors.red,
-                  startWidth: 5,
-                  endWidth: 5)
-            ],
             pointers: <GaugePointer>[
-              MarkerPointer(
+              RangePointer(
+                color: Colors.green,
                 value: temp2,
+                cornerStyle: CornerStyle.bothCurve,
+                width: 5,
+              )
+
+              /*
+              MarkerPointer(
+                value: temp1,
                 color: Colors.yellowAccent,
                 markerHeight: 15,
                 markerWidth: 15,
                 markerType: MarkerType.invertedTriangle,
               )
+
+              */
             ],
             annotations: <GaugeAnnotation>[
               GaugeAnnotation(
                   widget: Text('$temp2°',
                       style: const TextStyle(
-                       
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold)),
+                          fontSize: 18, fontWeight: FontWeight.bold)),
                   angle: 90,
                   positionFactor: 0)
             ],
