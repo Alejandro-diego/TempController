@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^1.2.1  
   provider: ^6.0.3
-  firebase_database: ^9.0.5
+  firebase_database: ^9.0.15
   syncfusion_flutter_gauges: ^20.1.60
   flutter_svg: ^1.1.0
   google_fonts: ^3.0.1

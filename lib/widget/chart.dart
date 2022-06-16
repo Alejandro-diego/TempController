@@ -1,11 +1,14 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../models/data.dart';
+import '../provider/dataprovider.dart';
 
 class ChartLine extends StatefulWidget {
   const ChartLine({Key? key}) : super(key: key);
@@ -21,7 +24,7 @@ class _ChartLineState extends State<ChartLine> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: dataRef.child("minutos").limitToLast(30).onValue,
+      stream: dataRef.child(context.watch<DataProviderRTDB>().date).limitToLast(30).onValue,
       builder: (BuildContext context, AsyncSnapshot snap) {
         Widget widget;
 
@@ -42,65 +45,34 @@ class _ChartLineState extends State<ChartLine> {
             primaryXAxis: CategoryAxis(
               visibleMinimum: 1,
               visibleMaximum: 10,
-            
             ),
             zoomPanBehavior: ZoomPanBehavior(
               enablePanning: true,
             ),
             series: <ChartSeries<Data, dynamic>>[
-               SplineAreaSeries<Data, dynamic>(
+              SplineAreaSeries<Data, dynamic>(
                   dataSource: chartData,
                   color: const Color.fromARGB(255, 0, 255, 234),
                   xValueMapper: (Data data, _) => minutos.format(
                       DateTime.fromMillisecondsSinceEpoch(data.timestamp)),
-                  yValueMapper: (Data data, _) => data.temp2,
+                  yValueMapper: (Data data, _) => data.temp2 / 100,
                   borderColor: Colors.green,
                   borderWidth: 1.5,
-                  
-
-                  
-                  opacity: 0.1
-
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  ),
-
-                  
-                  
-             SplineAreaSeries<Data, dynamic>(
-              opacity: 0.1,
-
-               borderColor: Colors.blue,
+                  opacity: 0.1),
+              SplineAreaSeries<Data, dynamic>(
+                  opacity: 0.1,
+                  borderColor: Colors.blue,
                   borderWidth: 1.5,
-                  
                   dataSource: chartData,
                   color: const Color.fromARGB(255, 0, 162, 255),
                   xValueMapper: (Data data, _) => minutos.format(
                         DateTime.fromMillisecondsSinceEpoch(data.timestamp),
                       ),
-                  yValueMapper: (Data data, _) => data.temp1),
-
-
-                  
-                  
+                  yValueMapper: (Data data, _) => data.temp1 / 100),
             ],
           );
         } else {
-          widget = const Center(child: CircularProgressIndicator());
+          widget = const Center(child: CupertinoActivityIndicator());
         }
         return widget;
       },

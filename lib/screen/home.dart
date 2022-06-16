@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tempcontrol/provider/dataprovider.dart';
+import 'package:tempcontrol/screen/settingpage.dart';
 
 import '../widget/button.dart';
 import '../widget/categorries.dart';
@@ -37,9 +39,22 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const PopupMenuItem(
                       value: 1,
+                      child: Text('LimparHoras'),
+                    ),
+                    const PopupMenuItem(
+                      value: 2,
+                      child: Text('LimparDias'),
+                    ),
+                    const PopupMenuItem(
+                      value: 3,
+                      child: Text('Setting'),
+                    ),
+
+                      const PopupMenuItem(
+                      value: 4,
                       child: Text('LogOut'),
                     ),
-                  ]),
+                  ],),
         ],
         title: const Text("Controlador Temperatura"),
       ),
@@ -61,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       child: const Categories(),
                     ),
                     Container(
-                      height: 250,
+                      height: 200,
                       margin:
                           const EdgeInsets.only(left: 15.0, right: 15, top: 15),
                       padding: const EdgeInsets.all(5.0),
@@ -96,11 +111,12 @@ class _HomePageState extends State<HomePage> {
                                 const Text('Press baixa:  71.3 psi'),
                                 const Spacer(),
                                 Row(children: [
-                                  Switch(
+                        CupertinoSwitch(
+                          activeColor: Colors.blue,
                                       value: data.datosProvider!.comp,
                                       onChanged: (bool valor) async {
                                         dialog();
-      
+
                                         setState(() {
                                           compState = valor;
                                         });
@@ -133,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Sfgauge1(
-                            temp1: (data.datosProvider!.temp1.toDouble() ),
+                            temp1: (data.datosProvider!.temp1 / 100),
                           )
                         ],
                       ),
@@ -189,14 +205,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Sfgauge2(
-                            temp2: (data.datosProvider!.temp2.toDouble() ),
+                            temp2: (data.datosProvider!.temp2 / 100),
                           )
                         ],
                       ),
                     ),
-      
-      
-                
                   ],
                 )
               : const Center(
@@ -241,10 +254,24 @@ class _HomePageState extends State<HomePage> {
     switch (item) {
       case 0:
         await _database.child('DataTemp/minutos').remove();
-
         break;
       case 1:
+        await _database.child('DataTemp/horas').remove();
+        break;
+      case 2:
+        await _database.child('DataTemp/dias').remove();
+        break;
+
+      case 4:
         FirebaseAuth.instance.signOut();
+        break;
+
+      case 3:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const SetingPage(),
+          ),
+        );
         break;
     }
   }
