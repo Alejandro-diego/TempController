@@ -55,7 +55,7 @@ class _SetingPageState extends State<SetingPage> {
                       child: Row(
                         children: [
                           Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             width: 55,
                             height: 190,
                             decoration: BoxDecoration(
@@ -85,7 +85,7 @@ class _SetingPageState extends State<SetingPage> {
                           ),
                           const Text("Congelados"),
                           Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             width: 55,
                             height: 190,
                             decoration: BoxDecoration(

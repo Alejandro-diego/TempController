@@ -32,26 +32,26 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
         child: Stack(
           children: [
             Positioned(
-              width: _size.width * 0.88,
-              height: _size.height,
-              left: _size.width * 0.10,
-              top: _size.height * 0.15,
+              width: size.width * 0.88,
+              height: size.height,
+              left: size.width * 0.10,
+              top: size.height * 0.15,
               child: const Text(
                 'Log In',
-                style: TextStyle(fontSize: 50),
+                style: TextStyle(fontSize: 40),
               ),
             ),
             Positioned(
-              width: _size.width * 0.88,
-              height: _size.height,
-              left: _size.width * 0.05,
-              top: _size.height * 0.05,
+              width: size.width * 0.88,
+              height: size.height,
+              left: size.width * 0.05,
+              top: size.height * 0.05,
               child: FormSigIn(
                 keyvalidator: _formKey,
                 passcontroller: senha,
@@ -59,11 +59,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Positioned(
-              left: _size.width * 0.2,
-              top: _size.height * 0.6,
+              left: size.width * 0.22,
+              top: size.height * 0.6,
               child: SizedBox(
-                height: 80,
-                width: 350,
+                height: 60,
+                width: 200,
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -80,10 +80,6 @@ class _LoginPageState extends State<LoginPage> {
                       getToken();
                     }
                   },
-                  child: const Text(
-                    'Log in',
-                    style: TextStyle(fontSize: 30),
-                  ),
                   style: ElevatedButton.styleFrom(
                     shadowColor: Colors.black,
                     primary: const Color.fromARGB(255, 19, 18, 18),
@@ -91,19 +87,23 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                   ),
+                  child: const Text(
+                    'Log in',
+                    style: TextStyle(fontSize: 25),
+                  ),
                 ),
               ),
             ),
             Positioned(
-              left: _size.width * 0.55,
-              top: _size.height * 0.92,
+              right: size.width * 0.01,
+              top: size.height * 0.92,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     'Power By',
                     style: GoogleFonts.cedarvilleCursive(
-                      textStyle: const TextStyle(fontSize: 20),
+                      textStyle: const TextStyle(fontSize: 15),
                     ),
                   ),
                   Text(
@@ -111,14 +111,14 @@ class _LoginPageState extends State<LoginPage> {
                     style: GoogleFonts.roboto(
                       fontWeight: FontWeight.w500,
                       textStyle:
-                          const TextStyle(color: Colors.red, fontSize: 40),
+                          const TextStyle(color: Colors.red, fontSize: 30),
                     ),
                   ),
                   Text(
                     'ech',
                     style: GoogleFonts.roboto(
                       textStyle:
-                          const TextStyle(color: Colors.white, fontSize: 40),
+                          const TextStyle(color: Colors.white, fontSize: 30),
                     ),
                   ),
                 ],
@@ -154,7 +154,6 @@ class _LoginPageState extends State<LoginPage> {
 
     messaging = FirebaseMessaging.instance;
     messaging.getToken().then((value) {
-      
       database.ref.child('data').update({
         'token': value,
       });

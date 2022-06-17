@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            width: 200,
+                            width: 180,
                             height: 170,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
