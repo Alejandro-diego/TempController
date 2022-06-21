@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tempcontrol/widget/form.dart';
 
 class LoginPage extends StatefulWidget {
@@ -59,11 +59,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Positioned(
-              left: size.width * 0.22,
-              top: size.height * 0.6,
+              left: size.width * 0.2,
+              top: size.height * 0.67,
               child: SizedBox(
                 height: 60,
-                width: 200,
+                width: size.width * 0.60,
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -78,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                       sigIN();
                       getToken();
+                      colocarCredenciales();
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -131,6 +132,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future sigIN() async {
+    late String error = "erro";
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: usuario.text.trim(),
@@ -138,25 +140,51 @@ class _LoginPageState extends State<LoginPage> {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        error = "E-mail não registrado";
         if (kDebugMode) {
           print('No user found for that email.');
         }
       } else if (e.code == 'wrong-password') {
+        error = "Senha invalida";
         if (kDebugMode) {
           print('Wrong password provided for that user.');
         }
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.black,
+          content: Text(
+            error,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ),
+      );
     }
   }
 
   void getToken() async {
     FirebaseMessaging.instance.getInitialMessage();
-
     messaging = FirebaseMessaging.instance;
-    messaging.getToken().then((value) {
-      database.ref.child('data').update({
-        'token': value,
-      });
-    });
+    messaging.getToken().then(
+      (value) {
+        database.ref.child('data').update(
+          {
+            'token': value,
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> colocarCredenciales() async {
+    SharedPreferences preference = await SharedPreferences.getInstance();
+
+    setState(
+      () {
+        preference.setString('email', usuario.text);
+        preference.setString('password', senha.text);
+      },
+    );
   }
 }

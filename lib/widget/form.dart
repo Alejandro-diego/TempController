@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tempcontrol/constants/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FormSigIn extends StatefulWidget {
   const FormSigIn(
@@ -18,6 +19,15 @@ class FormSigIn extends StatefulWidget {
 }
 
 class _FormSigInState extends State<FormSigIn> {
+
+  @override
+  void initState() {
+    _obtenerCredenciales();
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -90,4 +100,17 @@ class _FormSigInState extends State<FormSigIn> {
       ),
     );
   }
+
+
+ Future<void> _obtenerCredenciales() async {
+    SharedPreferences preference = await SharedPreferences.getInstance();
+    setState(() {
+      widget.passcontroller.text = preference.getString('password') ?? '';
+      widget.usercontroller.text = preference.getString('email') ?? '';
+    });
+  }
 }
+
+
+
+
