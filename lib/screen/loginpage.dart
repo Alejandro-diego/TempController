@@ -67,15 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          backgroundColor: Colors.black,
-                          content: Text(
-                            'Firebase Go',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      );
+                   
                       sigIN();
                       getToken();
                       colocarCredenciales();

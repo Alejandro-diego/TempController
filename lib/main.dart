@@ -1,3 +1,4 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -5,15 +6,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:tempcontrol/constants/constants.dart';
 import 'package:tempcontrol/provider/dataprovider.dart';
-
 import 'package:tempcontrol/screen/home.dart';
-
 import 'package:tempcontrol/screen/loginpage.dart';
 
 void main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(background);
   await Firebase.initializeApp();
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
             .apply(bodyColor: Colors.white60),
         canvasColor: secondaryColor,
       ),
-      home: const MainPage(),
+      home: const SplashScreen(),
     );
   }
 }
@@ -75,13 +76,45 @@ class MainPage extends StatelessWidget {
       ),
     );
   }
-
- 
 }
- Future<void> background(RemoteMessage message) async {
-    if (kDebugMode) {
-      print(message.data.toString());
-      print(message.notification!.body);
-      print(message.notification!.title);
-    }
+
+Future<void> background(RemoteMessage message) async {
+  if (kDebugMode) {
+    print(message.data.toString());
+    print(message.notification!.body);
+    print(message.notification!.title);
   }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSplashScreen(
+      animationDuration: const Duration(seconds: 4),
+      splash: Lottie.asset('assets/video/intro.json',
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      
+      fit: BoxFit.fill
+      
+      
+      ),
+      backgroundColor: Colors.black,
+      nextScreen:const MainPage() ,);
+  }
+}
